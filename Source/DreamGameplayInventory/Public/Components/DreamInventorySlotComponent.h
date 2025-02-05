@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "DreamInventoryBase.h"
-#include "DreamInventoryItem.h"
+#include "Classes/DreamInventoryItem.h"
 #include "DreamInventorySlotComponent.generated.h"
 
 

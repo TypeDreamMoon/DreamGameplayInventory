@@ -1,7 +1,7 @@
 // Copyright © Dream Moon Studio . Dream Moon All rights reserved
 
 
-#include "Classes/DreamInventoryComponent.h"
+#include "Components/DreamInventoryComponent.h"
 
 #include "DreamGameplayInventoryLog.h"
 #include "DreamGameplayInventoryTools.h"

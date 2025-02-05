@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "DreamGameplayInventoryCommon.generated.h"
 
+class UDreamInventoryItemLevel;
 class UDreamInventoryItem;
 class UDreamInventoryItemType;
 struct FDreamInventoryItemValue;
@@ -59,7 +60,7 @@ public:
 	FText Name = FText::FromString(TEXT("ItemName"));
 
 	// 物品的描述
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (MultiLine))
 	FText Description = FText::FromString(TEXT("ItemDescription"));
 
 	// 物品关键字
@@ -69,6 +70,10 @@ public:
 	// 物品的类型
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UDreamInventoryItemType* Type;
+
+	// 物品的等级
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UDreamInventoryItemLevel* Level;
 
 	// 物品的缩略图
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

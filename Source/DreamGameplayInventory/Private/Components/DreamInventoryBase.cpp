@@ -1,12 +1,13 @@
 // Copyright © Dream Moon Studio . Dream Moon All rights reserved
 
 
-#include "Classes/DreamInventoryBase.h"
+#include "Components/DreamInventoryBase.h"
 
 #include "DreamGameplayInventoryDeveloperSettings.h"
 #include "DreamGameplayInventoryLog.h"
 #include "Classes/DreamInventoryItem.h"
 #include "Classes/DreamInventoryItemType.h"
+#include "Classes/DreamInventoryItemLevel.h"
 
 #define CALL_DATA_CHANGED() OnDataChanged.Broadcast(GetInventoryData());
 #define CALL_DATA_REMOVED() OnRemoveFromData.Broadcast();
@@ -84,7 +85,78 @@ void UDreamInventoryBase::SortInventoryByType(bool bReverse, bool bSafe, bool bS
 	}
 
 	RefreshIndex();
-	CALL_DATA_CHANGED()
+}
+
+void UDreamInventoryBase::SortInventoryByLevel(bool bReverse, bool bSafe, bool bSameTypeSortByQuantity, bool bCountSortReverse)
+{
+	if (bReverse)
+	{
+		if (bSafe)
+			GetInventoryData().StableSort([bSameTypeSortByQuantity, bCountSortReverse](const UDreamInventoryItem& A, const UDreamInventoryItem& B)
+			{
+				if ((A.GetLevel() == B.GetLevel()) && bSameTypeSortByQuantity)
+				{
+					if (bCountSortReverse)
+						return A.GetCurrentCount() > B.GetCurrentCount();
+					else
+						return A.GetCurrentCount() < B.GetCurrentCount();
+				}
+				else
+				{
+					return A.GetLevel()->SortPriority < B.GetLevel()->SortPriority;					
+				}
+			});
+		else
+			GetInventoryData().Sort([bSameTypeSortByQuantity, bCountSortReverse](const UDreamInventoryItem& A, const UDreamInventoryItem& B)
+			{
+				if ((A.GetLevel() == B.GetLevel()) && bSameTypeSortByQuantity)
+				{
+					if (bCountSortReverse)
+						return A.GetCurrentCount() > B.GetCurrentCount();
+					else
+						return A.GetCurrentCount() < B.GetCurrentCount();
+				}
+				else
+				{
+					return A.GetLevel()->SortPriority < B.GetLevel()->SortPriority;
+				}
+			});
+	}
+	else
+	{
+		if (bSafe)
+			GetInventoryData().StableSort([bSameTypeSortByQuantity, bCountSortReverse](const UDreamInventoryItem& A, const UDreamInventoryItem& B)
+			{
+				if ((A.GetLevel() == B.GetLevel()) && bSameTypeSortByQuantity)
+				{
+					if (bCountSortReverse)
+						return A.GetCurrentCount() > B.GetCurrentCount();
+					else
+						return A.GetCurrentCount() < B.GetCurrentCount();
+				}
+				else
+				{
+					return A.GetLevel()->SortPriority > B.GetLevel()->SortPriority;
+				}
+			});
+		else
+			GetInventoryData().Sort([bSameTypeSortByQuantity, bCountSortReverse](const UDreamInventoryItem& A, const UDreamInventoryItem& B)
+			{
+				if ((A.GetLevel() == B.GetLevel()) && bSameTypeSortByQuantity)
+				{
+					if (bCountSortReverse)
+						return A.GetCurrentCount() > B.GetCurrentCount();
+					else
+						return A.GetCurrentCount() < B.GetCurrentCount();
+				}
+				else
+				{
+					return A.GetLevel()->SortPriority > B.GetLevel()->SortPriority;
+				}
+			});
+	}
+
+	RefreshIndex();
 }
 
 void UDreamInventoryBase::SortInventoryByCount(bool bReverse, bool bSafe)
@@ -117,7 +189,6 @@ void UDreamInventoryBase::SortInventoryByCount(bool bReverse, bool bSafe)
 	}
 
 	RefreshIndex();
-	CALL_DATA_CHANGED()
 }
 
 void UDreamInventoryBase::SortInventoryByName(bool bReverse, bool bSafe)
@@ -150,7 +221,6 @@ void UDreamInventoryBase::SortInventoryByName(bool bReverse, bool bSafe)
 	}
 
 	RefreshIndex();
-	CALL_DATA_CHANGED()
 }
 
 FDreamInventorySaveGameData UDreamInventoryBase::ConstructSaveGameData()

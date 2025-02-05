@@ -4,9 +4,9 @@
 #include "DreamGameplayInventoryBlueprintLibrary.h"
 
 #include "DreamGameplayInventoryInterface.h"
-#include "Classes/DreamInventoryComponent.h"
+#include "Components/DreamInventoryComponent.h"
+#include "Components/DreamInventorySlotComponent.h"
 #include "Classes/DreamInventoryItem.h"
-#include "Classes/DreamInventorySlotComponent.h"
 
 
 UDreamInventoryBase* UDreamGameplayInventoryBlueprintLibrary::GetDreamGameplayInventory(AActor* Target)

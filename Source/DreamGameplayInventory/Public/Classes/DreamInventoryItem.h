@@ -20,6 +20,12 @@ public:
 	~UDreamInventoryItem();
 
 public:
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FItemSimpleDelegate, UDreamInventoryItem*, Item);
+
+	UPROPERTY(BlueprintAssignable)
+	FItemSimpleDelegate OnItemUpdate;
+	
+public:
 	/**
 	 * 当物品使用时
 	 */
@@ -113,6 +119,10 @@ public:
 	// 获取类型
 	UFUNCTION(BlueprintPure, Category = Functions)
 	UDreamInventoryItemType* GetType() const { return Information.Type; }
+
+	// 获取等级
+	UFUNCTION(BlueprintPure, Category = Functions)
+	UDreamInventoryItemLevel* GetLevel() const { return Information.Level; }
 
 	// 获取当前是否能叠加
 	UFUNCTION(BlueprintPure, Category = Functions)

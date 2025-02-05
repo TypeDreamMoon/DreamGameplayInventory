@@ -48,9 +48,11 @@ TSharedRef<class FSlateStyleSet> FDreamGameplayInventoryManagerStyle::Create()
 
 	Style->Set("ClassThumbnail.DreamInventoryItem", new IMAGE_BRUSH(TEXT("Item"), Icon40x40));
 	Style->Set("ClassThumbnail.DreamInventoryItemType", new IMAGE_BRUSH(TEXT("Type"), Icon40x40));
+	Style->Set("ClassThumbnail.DreamInventoryItemLevel", new IMAGE_BRUSH(TEXT("Level"), Icon40x40));
 
 	Style->Set("ClassIcon.DreamInventoryItem", new IMAGE_BRUSH(TEXT("Item"), Icon16x16));
 	Style->Set("ClassIcon.DreamInventoryItemType", new IMAGE_BRUSH(TEXT("Type"), Icon16x16));
+	Style->Set("ClassIcon.DreamInventoryItemLevel", new IMAGE_BRUSH(TEXT("Level"), Icon16x16));
 
 	Style->Set("DreamGameplayInventoryEditor.DreamGameplayInventoryManager.TabIcon", new IMAGE_BRUSH("TabBrowser", Icon16x16));
 	Style->Set("DreamGameplayInventoryEditor.OpenManager", new IMAGE_BRUSH(TEXT("OpenIcon"), Icon40x40));

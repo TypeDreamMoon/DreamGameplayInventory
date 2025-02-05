@@ -12,14 +12,18 @@ class UDreamInventoryItem;
 /**
  * Dream Gameplay Inventory Base
  */
-UCLASS(ClassGroup=DreamComponent)
+UCLASS(ClassGroup=DreamComponent, Abstract)
 class DREAMGAMEPLAYINVENTORY_API UDreamInventoryBase : public UActorComponent
 {
 	GENERATED_BODY()
+
 public:
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnItemDelegate, UDreamInventoryItem*, Item);
+
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnItemDataDelegate, const TArray<UDreamInventoryItem*>&, Items);
+
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSimpleDelegate);
+
 public:
 	/**
 	 * 物品添加时
@@ -92,6 +96,16 @@ public:
 	void SortInventoryByType(bool bReverse, bool bSafe = false, bool bSameTypeSortByQuantity = true, bool bCountSortReverse = false);
 
 	/**
+	 * Sort Inventory By Level
+	 * @param bReverse 是否反向排序
+	 * @param bSafe 是否启用归并排序
+	 * @param bSameTypeSortByQuantity 如果为同等级 按数量排序
+	 * @param bCountSortReverse SameTypeSortByQuantity反向排序
+	 */
+	UFUNCTION(BlueprintCallable, Category = Functions)
+	void SortInventoryByLevel(bool bReverse, bool bSafe = false, bool bSameTypeSortByQuantity = true, bool bCountSortReverse = false);
+
+	/**
 	 * Sort Inventory By Count
 	 * @param bReverse 是否反向排序
 	 * @param bSafe 是否启用归并排序
@@ -144,7 +158,7 @@ public:
 	 */
 	UFUNCTION(BlueprintPure, Category = Functions)
 	UDreamInventoryItem* GetItemByIndex(int InIndex);
-	
+
 public:
 	// 清除空物品
 	virtual void CleanEmptyItem();

@@ -7,7 +7,7 @@
 
 #include "DreamGameplayInventoryDeveloperSettings.h"
 #include "DreamGameplayInventoryLog.h"
-#include "Classes/DreamInventoryBase.h"
+#include "Components/DreamInventoryBase.h"
 
 #define CALL_COMPONENT_DATA_CHANGE_DELEGATE() if (GetOwnerComponent()) GetOwnerComponent()->OnDataChanged.Broadcast(GetOwnerComponent()->GetInventoryData());
 #define CALL_COMPONENT_ADD_ITEM_DELEGATE() if (GetOwnerComponent()) GetOwnerComponent()->OnAddItem.Broadcast(this);
@@ -155,6 +155,7 @@ void UDreamInventoryItem::Item_RemoveSingle()
 	{
 		ValueData.Count--;
 	}
+	OnItemUpdate.Broadcast(this);
 }
 
 void UDreamInventoryItem::Item_RemoveAll()
@@ -171,6 +172,7 @@ void UDreamInventoryItem::Item_RemoveAll()
 	{
 		Item_RemoveSingle();
 	}
+	OnItemUpdate.Broadcast(this);
 }
 
 int UDreamInventoryItem::Item_Remove(int InRemoveCount)
@@ -184,6 +186,7 @@ int UDreamInventoryItem::Item_Remove(int InRemoveCount)
 			{
 				Item_RemoveSingle();
 			}
+			OnItemUpdate.Broadcast(this);
 			return InRemoveCount - GetCurrentCount();
 		}
 		else
@@ -192,12 +195,14 @@ int UDreamInventoryItem::Item_Remove(int InRemoveCount)
 			{
 				Item_RemoveSingle();
 			}
+			OnItemUpdate.Broadcast(this);
 			return 0;
 		}
 	}
 	else
 	{
 		Item_RemoveSingle();
+		OnItemUpdate.Broadcast(this);
 		return FMath::Abs(GetCurrentCount() - InRemoveCount);
 	}
 }
@@ -210,6 +215,7 @@ void UDreamInventoryItem::Item_UseAll()
 		BP_OnUseItem();
 		Item_RemoveSingle();
 	}
+	OnItemUpdate.Broadcast(this);
 }
 
 int UDreamInventoryItem::Item_Use(int InUseCount)
@@ -222,6 +228,7 @@ int UDreamInventoryItem::Item_Use(int InUseCount)
 			// 使用物品数量大于当前数量
 			int ResultCount = InUseCount - GetCurrentCount();
 			Item_UseAll();
+			OnItemUpdate.Broadcast(this);
 			return ResultCount;
 		}
 		else
@@ -232,7 +239,7 @@ int UDreamInventoryItem::Item_Use(int InUseCount)
 				BP_OnUseItem();
 			}
 			Item_Remove(InUseCount);
-
+			OnItemUpdate.Broadcast(this);
 			return 0;
 		}
 	}
@@ -240,7 +247,7 @@ int UDreamInventoryItem::Item_Use(int InUseCount)
 	{
 		BP_OnUseItem();
 		Item_RemoveSingle();
-
+		OnItemUpdate.Broadcast(this);
 		return FMath::Abs(InUseCount - 1);
 	}
 }
@@ -251,6 +258,7 @@ void UDreamInventoryItem::Item_CheckCanBeginDestory()
 	{
 		GetOwnerComponent()->RemoveByIndex(Index);
 		BP_OnRemoveFromInventory();
+		OnItemUpdate.Broadcast(this);
 	}
 }
 

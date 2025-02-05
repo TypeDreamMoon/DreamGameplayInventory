@@ -1,7 +1,7 @@
 // Copyright © Dream Moon Studio . Dream Moon All rights reserved
 
 
-#include "Classes/DreamInventorySlotComponent.h"
+#include "Components/DreamInventorySlotComponent.h"
 
 UDreamInventorySlotComponent::UDreamInventorySlotComponent()
 {
