@@ -20,6 +20,10 @@ class DREAMGAMEPLAYINVENTORY_API UDreamInventoryBase : public UActorComponent
 public:
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnItemDelegate, UDreamInventoryItem*, Item);
 
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnItemClassDelegate, TSubclassOf<UDreamInventoryItem>, ItemClass);
+
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnItemAddedDelegate, TSubclassOf<UDreamInventoryItem>, ItemClass, int, Count);
+
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnItemDataDelegate, const TArray<UDreamInventoryItem*>&, Items);
 
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSimpleDelegate);
@@ -29,7 +33,7 @@ public:
 	 * 物品添加时
 	 */
 	UPROPERTY(BlueprintAssignable)
-	FOnItemDelegate OnAddItem;
+	FOnItemAddedDelegate OnAddItem;
 
 	/**
 	 * 物品使用时

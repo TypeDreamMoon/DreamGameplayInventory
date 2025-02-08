@@ -10,7 +10,6 @@
 #include "Components/DreamInventoryBase.h"
 
 #define CALL_COMPONENT_DATA_CHANGE_DELEGATE() if (GetOwnerComponent()) GetOwnerComponent()->OnDataChanged.Broadcast(GetOwnerComponent()->GetInventoryData());
-#define CALL_COMPONENT_ADD_ITEM_DELEGATE() if (GetOwnerComponent()) GetOwnerComponent()->OnAddItem.Broadcast(this);
 #define CALL_COMPONENT_REMOVE_ITEM_DELEGATE() if (GetOwnerComponent()) GetOwnerComponent()->OnRemoveItem.Broadcast(this);
 #define CALL_COMPONENT_USE_ITEM_DELEGATE() if (GetOwnerComponent()) GetOwnerComponent()->OnUseItem.Broadcast(this);
 
@@ -98,7 +97,6 @@ int UDreamInventoryItem::AddItem(int InCount)
 	}
 
 	// 广播事件和更新
-	CALL_COMPONENT_ADD_ITEM_DELEGATE();
 	CALL_COMPONENT_DATA_CHANGE_DELEGATE();
 	BP_OnItemChanged();
 

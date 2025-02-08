@@ -16,6 +16,7 @@ UDreamInventoryComponent::UDreamInventoryComponent()
 void UDreamInventoryComponent::GiveItemByClass(TSubclassOf<UDreamInventoryItem> InClass, int Count, bool bReverse)
 {
 	AddItem(InClass, Count, bReverse);
+	OnAddItem.Broadcast(InClass, Count);
 }
 
 int UDreamInventoryComponent::RemoveItemByClass(TSubclassOf<UDreamInventoryItem> InClass, int Count, bool bReverse)
@@ -83,7 +84,6 @@ void UDreamInventoryComponent::AddItem(TSubclassOf<UDreamInventoryItem> InClass,
 			Buffer->Initialize(this, index);
 			
 			OnDataChanged.Broadcast(GetInventoryData());
-			OnAddItem.Broadcast(Buffer);
 		}
 	}
 }

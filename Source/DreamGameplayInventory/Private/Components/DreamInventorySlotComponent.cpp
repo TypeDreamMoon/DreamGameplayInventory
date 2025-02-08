@@ -102,7 +102,6 @@ int UDreamInventorySlotComponent::GiveItemByClass(TSubclassOf<UDreamInventoryIte
 					// 可堆叠物品，尝试添加所有剩余数量
 					int Added = NewItem->AddItem(RemainingCount);
 					RemainingCount -= (RemainingCount - Added);
-					OnAddItem.Broadcast(NewItem);
 				}
 			}
 		}
@@ -111,7 +110,6 @@ int UDreamInventorySlotComponent::GiveItemByClass(TSubclassOf<UDreamInventoryIte
 			// 如果当前槽有可堆叠的物品，尝试添加
 			int Added = CurrentItem->AddItem(RemainingCount);
 			RemainingCount -= (RemainingCount - Added);
-			OnAddItem.Broadcast(CurrentItem);
 		}
 	}
 
