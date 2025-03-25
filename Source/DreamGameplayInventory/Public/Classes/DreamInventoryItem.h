@@ -205,4 +205,7 @@ private:
 	virtual void Item_CheckCanBeginDestory();
 public:
 	void SetValueData(FDreamInventoryItemValue InData);
+
+	/** UObject **/
+	virtual UWorld* GetWorld() const override; 
 };

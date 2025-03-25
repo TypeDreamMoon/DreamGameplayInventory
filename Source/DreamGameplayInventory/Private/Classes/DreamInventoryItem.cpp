@@ -265,3 +265,8 @@ void UDreamInventoryItem::SetValueData(FDreamInventoryItemValue InData)
 {
 	ValueData = InData;
 }
+
+UWorld* UDreamInventoryItem::GetWorld() const
+{
+	return GetOuter()->GetWorld();
+}
