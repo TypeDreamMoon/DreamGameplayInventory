@@ -15,7 +15,8 @@
 
 UDreamInventoryItem::~UDreamInventoryItem()
 {
-	DI_FLOG(Log, TEXT("%s Item Destory."), *GetInformation().Name.ToString());
+	if (UDreamGameplayInventoryDeveloperSettings::Get()->bEnabledItemDebugLog)
+		DI_FLOG(Log, TEXT("%s Item Destory."), *GetInformation().Name.ToString());
 }
 
 UDreamInventoryItem* UDreamInventoryItem::Initialize(UDreamInventoryBase* InOwnerComponent, int InItemIndex)

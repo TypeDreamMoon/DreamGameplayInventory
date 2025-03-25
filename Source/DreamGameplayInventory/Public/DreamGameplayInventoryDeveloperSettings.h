@@ -26,6 +26,9 @@ public:
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Default, meta = (ForceInlineRow), Config)
 	TMap<TSubclassOf<UDreamInventoryItem>, FGuid> ItemGuids;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Debug)
+	bool bEnabledItemDebugLog = true;
 public:
 	TSubclassOf<UDreamInventoryItem> GetItemClassByGuid(FGuid InGuid);
 	FGuid GetItemGuidByClass(TSubclassOf<UDreamInventoryItem> InClass);
