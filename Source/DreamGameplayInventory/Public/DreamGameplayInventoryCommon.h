@@ -69,11 +69,11 @@ public:
 	
 	// 物品的类型
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UDreamInventoryItemType* Type;
+	UDreamInventoryItemType* Type = nullptr;
 
 	// 物品的等级
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UDreamInventoryItemLevel* Level;
+	UDreamInventoryItemLevel* Level = nullptr;
 
 	// 物品的缩略图
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
