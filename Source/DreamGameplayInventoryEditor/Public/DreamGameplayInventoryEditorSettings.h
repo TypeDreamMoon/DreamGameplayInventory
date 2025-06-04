@@ -35,5 +35,5 @@ public:
 	FName DebuggerVersion = FName(TEXT("0.0.1"));
 	
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Config, Category = "Version")
-	FName PluginVersion = FName(TEXT("0.1.0"));
+	FName PluginVersion = FName(TEXT("0.1.1"));
 };

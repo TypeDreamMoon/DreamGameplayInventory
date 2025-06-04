@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "DreamGameplayInventoryCommon.h"
 #include "UObject/Object.h"
+#include "Components/DreamInventoryBase.h"
 #include "DreamInventoryItem.generated.h"
 
 class UDreamInventoryBase;
@@ -16,6 +17,7 @@ UCLASS(Blueprintable)
 class DREAMGAMEPLAYINVENTORY_API UDreamInventoryItem : public UObject
 {
 	GENERATED_BODY()
+
 public:
 	~UDreamInventoryItem();
 
@@ -24,7 +26,7 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FItemSimpleDelegate OnItemUpdate;
-	
+
 public:
 	/**
 	 * 当物品使用时
@@ -82,7 +84,7 @@ public:
 	 */
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = Data)
 	UDreamInventoryBase* OwnerComponent;
-	
+
 public:
 	/**
 	 * 初始化物品对象
@@ -136,6 +138,10 @@ public:
 	// 获取当前物品的拥有组件
 	UFUNCTION(BlueprintPure, Category = Functions)
 	UDreamInventoryBase* GetOwnerComponent() const { return OwnerComponent; }
+
+	// 获取物品拥有者
+	UFUNCTION(BlueprintPure, Category = Functions)
+	AActor* GetOwnerActor() const { return GetOwnerComponent()->GetOwner(); }
 
 
 	/**
@@ -203,9 +209,10 @@ private:
 	virtual void Item_UseAll();
 	virtual int Item_Use(int InUseCount);
 	virtual void Item_CheckCanBeginDestory();
+
 public:
 	void SetValueData(FDreamInventoryItemValue InData);
 
 	/** UObject **/
-	virtual UWorld* GetWorld() const override; 
+	virtual UWorld* GetWorld() const override;
 };
