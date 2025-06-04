@@ -44,6 +44,7 @@ TSharedRef<class FSlateStyleSet> FDreamGameplayInventoryManagerStyle::Create()
 	Style->Set("DreamGameplayInventory.Icon", new IMAGE_BRUSH(TEXT("TabBrowser"), Icon20x20));
 	Style->Set("DreamGameplayInventory.LoadMemory", new IMAGE_BRUSH(TEXT("ForceLoadMemory"), Icon20x20));
 	Style->Set("DreamGameplayInventory.Refresh", new IMAGE_BRUSH(TEXT("Refresh"), Icon20x20));
+	Style->Set("DreamGameplayInventory.CreateNewItem", new IMAGE_BRUSH(TEXT("CreateNewItem"), Icon20x20));
 	Style->Set("DreamGameplayInventory.Open", new IMAGE_BRUSH(TEXT("OpenIcon"), Icon20x20));
 
 	Style->Set("ClassThumbnail.DreamInventoryItem", new IMAGE_BRUSH(TEXT("Item"), Icon40x40));

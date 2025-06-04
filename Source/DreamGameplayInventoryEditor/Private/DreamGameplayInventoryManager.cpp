@@ -207,6 +207,21 @@ void SDreamGameplayInventoryManagerPage::Construct(const FArguments& InArgs)
 				]
 			]
 
+			// TODO : Create New Item
+			+ SHorizontalBox::Slot()
+			.AutoWidth()
+			[
+				SNew(SButton)
+				.OnClicked_Lambda([]()
+				{
+					FDreamGameplayInventoryEditorTools::CreateBlueprintByClass(UDreamInventoryItem::StaticClass(), FString("NewItem"), EBlueprintType::BPTYPE_Normal, true);
+					return FReply::Handled();
+				})
+				[
+					FTools::MakeIconAndTextWidget(MAKE_TEXT_FROM_STRING("Create New Item"), FDreamGameplayInventoryManagerStyle::Get().GetBrush("DreamGameplayInventory.CreateNewItem"), 20, 10)
+				]
+			]
+
 			// TODO : REFRESH
 			+ SHorizontalBox::Slot()
 			.AutoWidth()

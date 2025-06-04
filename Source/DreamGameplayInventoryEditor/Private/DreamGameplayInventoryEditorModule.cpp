@@ -1,5 +1,6 @@
 ﻿#include "DreamGameplayInventoryEditorModule.h"
 
+#include "ContentBrowserModule.h"
 #include "DreamGameplayInventoryEditorCommand.h"
 #include "DreamGameplayInventoryEditorSettings.h"
 #include "DreamGameplayInventoryEditorTools.h"
@@ -116,6 +117,15 @@ void FDreamGameplayInventoryEditorModule::MakeMenu(FMenuBuilder& MenuBuilder)
 	MenuBuilder.AddMenuEntry(Commands.OpenManager, FName("Open Manager"), FText::FromString("Open Manager"));
 
 	MenuBuilder.EndSection();
+}
+
+void FDreamGameplayInventoryEditorModule::RegisterContentBrowserPathChange()
+{
+	FContentBrowserModule& ContentBrowserModule = FModuleManager::LoadModuleChecked<FContentBrowserModule>("ContentBrowser");
+	ContentBrowserModule.GetOnAssetPathChanged().AddLambda([this](const FString& Path)
+	{
+		CurrentContentBrowserPath = Path;
+	});
 }
 
 #undef LOCTEXT_NAMESPACE

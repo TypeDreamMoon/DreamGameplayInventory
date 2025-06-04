@@ -29,7 +29,7 @@ public:
 	TArray<FDirectoryPath> ManagerLoadObjectPaths;
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Config, Category = "Version")
-	FName ManagerVersion = FName(TEXT("0.1.0"));
+	FName ManagerVersion = FName(TEXT("0.2.0"));
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Config, Category = "Version")
 	FName DebuggerVersion = FName(TEXT("0.0.1"));

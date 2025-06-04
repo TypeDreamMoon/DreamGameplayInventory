@@ -12,4 +12,5 @@ public:
 	static void ForceLoadAssetToMemory(UClass* Class);
 	static TArray<FAssetData> GetAssetData(UClass* Class);
 	static TArray<FString> Conv_DirectoryToString(TArray<FDirectoryPath> Paths);
+	static UBlueprint* CreateBlueprintByClass(TSubclassOf<UObject> Class, FString Name, EBlueprintType BlueprintType, bool bPickClass);
 };
