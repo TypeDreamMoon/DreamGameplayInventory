@@ -94,7 +94,7 @@ TArray<UDreamInventoryItem*> UDreamGameplayInventoryBlueprintLibrary::FilterItem
 	{
 		for (auto Element : Target)
 		{
-			if (Element->StaticClass()->IsChildOf(Class) || Element->StaticClass() == Class)
+			if (Element->GetClass()->IsChildOf(Class) || Element->StaticClass() == Class)
 			{
 				Result.Add(Element);
 			}
@@ -104,7 +104,7 @@ TArray<UDreamInventoryItem*> UDreamGameplayInventoryBlueprintLibrary::FilterItem
 	{
 		for (auto Element : Target)
 		{
-			if (Element->StaticClass() == Class)
+			if (Element->GetClass() == Class)
 			{
 				Result.Add(Element);
 			}
