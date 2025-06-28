@@ -12,8 +12,8 @@ struct FDreamInventoryItemDisplayInformation;
 UENUM(BlueprintType)
 enum class EDreamInventorySaveType : uint8
 {
-	EDIST_Default			= 0		UMETA(DisplayName = "Default"),
-	EDIST_Slot				= 1		UMETA(DisplayName = "Slot"),
+	EDIST_Default = 0 UMETA(DisplayName = "Default"),
+	EDIST_Slot = 1 UMETA(DisplayName = "Slot"),
 };
 
 /**
@@ -24,6 +24,23 @@ USTRUCT(BlueprintType)
 struct FDreamInventoryItemValue
 {
 	GENERATED_BODY()
+
+public:
+	FDreamInventoryItemValue()
+		: Weight(0.0f), bCanStack(true), bCanUnlimited(true), Count(0), MaxCount(1)
+	{
+	}
+
+	FDreamInventoryItemValue(float InWeight, bool InCanStack, bool InCanUnlimited, int InCount, int InMaxCount)
+		: Weight(InWeight), bCanStack(InCanStack), bCanUnlimited(InCanUnlimited), Count(InCount), MaxCount(InMaxCount)
+	{
+	}
+
+	FDreamInventoryItemValue(const FDreamInventoryItemValue& InCopyData, int InCount)
+		: Weight(InCopyData.Weight), bCanStack(InCopyData.bCanStack), bCanUnlimited(InCopyData.bCanUnlimited), Count(FMath::Clamp(InCount, 0, InCopyData.MaxCount)), MaxCount(InCopyData.MaxCount)
+	{
+	}
+
 public:
 	// 物品的重量
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -42,7 +59,7 @@ public:
 	int Count = 0;
 
 	// 物品的最大数量
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(EditCondition = "bCanStack==true&&bCanUnlimited==false", EditConditionHides))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(EditCondition = "bCanStack == true && bCanUnlimited == false", EditConditionHides))
 	int MaxCount = 1;
 };
 
@@ -54,6 +71,7 @@ USTRUCT(BlueprintType)
 struct FDreamInventoryItemDisplayInformation
 {
 	GENERATED_BODY()
+
 public:
 	// 物品的名称
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -66,7 +84,7 @@ public:
 	// 物品关键字
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FString> KeyWords;
-	
+
 	// 物品的类型
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UDreamInventoryItemType* Type = nullptr;
@@ -84,9 +102,13 @@ USTRUCT(BlueprintType)
 struct FDreamInventoryItemSaveData
 {
 	GENERATED_BODY()
+
 public:
-	FDreamInventoryItemSaveData() {};
+	FDreamInventoryItemSaveData()
+	{
+	};
 	FDreamInventoryItemSaveData(const UDreamInventoryItem* Item);
+
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FGuid ClassGuid;
@@ -99,9 +121,14 @@ USTRUCT(BlueprintType)
 struct FDreamInventorySaveGameData
 {
 	GENERATED_BODY()
+
 public:
-	FDreamInventorySaveGameData() {}
+	FDreamInventorySaveGameData()
+	{
+	}
+
 	FDreamInventorySaveGameData(const TArray<UDreamInventoryItem*>& InSaveItems, EDreamInventorySaveType InSaveType);
+
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FDreamInventoryItemSaveData> SaveGameDatas;
@@ -121,10 +148,17 @@ USTRUCT(BlueprintType)
 struct FDreamInventoryFindResultSpec
 {
 	GENERATED_BODY()
+
 public:
-	FDreamInventoryFindResultSpec() : bFound(false), FindIndex(-1), FindRemaining(0), FindItem(nullptr){};
+	FDreamInventoryFindResultSpec() : bFound(false), FindIndex(-1), FindRemaining(0), FindItem(nullptr)
+	{
+	};
+
 	FDreamInventoryFindResultSpec(bool InFound, int InFindIndex, int InFindRemaining, UDreamInventoryItem* InItem) :
-		bFound(InFound), FindIndex(InFindIndex), FindRemaining(InFindRemaining), FindItem(InItem) {};
+		bFound(InFound), FindIndex(InFindIndex), FindRemaining(InFindRemaining), FindItem(InItem)
+	{
+	};
+
 public:
 	// 是否查找到
 	bool bFound = false;

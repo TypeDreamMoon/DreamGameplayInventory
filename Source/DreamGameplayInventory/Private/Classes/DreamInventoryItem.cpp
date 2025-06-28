@@ -3,11 +3,9 @@
 
 #include "Classes/DreamInventoryItem.h"
 
-#include "UObject/ObjectSaveContext.h"
-
+#include "Components/DreamInventoryBase.h"
 #include "DreamGameplayInventoryDeveloperSettings.h"
 #include "DreamGameplayInventoryLog.h"
-#include "Components/DreamInventoryBase.h"
 
 #define CALL_COMPONENT_DATA_CHANGE_DELEGATE() if (GetOwnerComponent()) GetOwnerComponent()->OnDataChanged.Broadcast(GetOwnerComponent()->GetInventoryData());
 #define CALL_COMPONENT_REMOVE_ITEM_DELEGATE() if (GetOwnerComponent()) GetOwnerComponent()->OnRemoveItem.Broadcast(this);
@@ -33,6 +31,11 @@ UDreamInventoryItem* UDreamInventoryItem::Initialize(UDreamInventoryBase* InOwne
 	BP_OnInitialize(InOwnerComponent);
 
 	return this;
+}
+
+AActor* UDreamInventoryItem::GetOwnerActor() const
+{
+	return GetOwnerComponent()->GetOwner();
 }
 
 void UDreamInventoryItem::UseAllItem()

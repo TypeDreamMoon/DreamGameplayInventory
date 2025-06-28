@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "DreamGameplayInventoryCommon.h"
 #include "UObject/Object.h"
-#include "Components/DreamInventoryBase.h"
 #include "DreamInventoryItem.generated.h"
 
 class UDreamInventoryBase;
@@ -141,7 +140,7 @@ public:
 
 	// 获取物品拥有者
 	UFUNCTION(BlueprintPure, Category = Functions)
-	AActor* GetOwnerActor() const { return GetOwnerComponent()->GetOwner(); }
+	AActor* GetOwnerActor() const;
 
 
 	/**

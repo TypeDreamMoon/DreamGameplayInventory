@@ -3,6 +3,7 @@
 
 #include "Components/DreamInventoryBase.h"
 
+#include "DreamGameplayInventoryBlueprintLibrary.h"
 #include "DreamGameplayInventoryDeveloperSettings.h"
 #include "DreamGameplayInventoryLog.h"
 #include "Classes/DreamInventoryItem.h"
@@ -31,7 +32,7 @@ void UDreamInventoryBase::SortInventoryByType(bool bReverse, bool bSafe, bool bS
 				}
 				else
 				{
-					return A.GetType()->SortPriority < B.GetType()->SortPriority;					
+					return A.GetType()->SortPriority < B.GetType()->SortPriority;
 				}
 			});
 		else
@@ -103,7 +104,7 @@ void UDreamInventoryBase::SortInventoryByLevel(bool bReverse, bool bSafe, bool b
 				}
 				else
 				{
-					return A.GetLevel()->SortPriority < B.GetLevel()->SortPriority;					
+					return A.GetLevel()->SortPriority < B.GetLevel()->SortPriority;
 				}
 			});
 		else
@@ -233,7 +234,7 @@ bool UDreamInventoryBase::LoadSaveGameData(FDreamInventorySaveGameData InSaveGam
 	if (InSaveGameData.SaveType == SaveType)
 	{
 		GetInventoryData().Empty();
-	
+
 		for (auto Element : InSaveGameData.SaveGameDatas)
 		{
 			if (TSubclassOf<UDreamInventoryItem> Class = UDreamGameplayInventoryDeveloperSettings::Get()->GetItemClassByGuid(Element.ClassGuid))
@@ -248,10 +249,10 @@ bool UDreamInventoryBase::LoadSaveGameData(FDreamInventorySaveGameData InSaveGam
 				DI_LOG(Error, TEXT("Class Null."));
 			}
 		}
-	
+
 		CALL_LOADED()
 		CALL_DATA_CHANGED()
-	
+
 		DI_LOG(Log, TEXT("Load Data Success. Count: %d"), InSaveGameData.SaveGameDatas.Num());
 		return true;
 	}
@@ -283,6 +284,11 @@ UDreamInventoryItem* UDreamInventoryBase::GetItemByIndex(int InIndex)
 	{
 		return nullptr;
 	}
+}
+
+TArray<UDreamInventoryItem*> UDreamInventoryBase::GetItemsByClass(TSubclassOf<UDreamInventoryItem> InClass)
+{
+	return UDreamGameplayInventoryBlueprintLibrary::FilterItemByClass(GetInventoryData(), InClass, false);
 }
 
 void UDreamInventoryBase::CleanEmptyItem()
@@ -318,7 +324,7 @@ void UDreamInventoryBase::RemoveByIndex(int InIndex)
 		Item->ConditionalBeginDestroy();
 		RefreshIndex();
 	}
-	
+
 	CALL_DATA_REMOVED()
 }
 

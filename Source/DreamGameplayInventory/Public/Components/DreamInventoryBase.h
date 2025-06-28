@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "DreamGameplayInventoryCommon.h"
+#include "Classes/DreamInventoryItem.h"
 #include "Components/ActorComponent.h"
 #include "DreamInventoryBase.generated.h"
 
@@ -163,6 +164,14 @@ public:
 	UFUNCTION(BlueprintPure, Category = Functions)
 	UDreamInventoryItem* GetItemByIndex(int InIndex);
 
+	/**
+	 * Get Items By Class
+	 * @param InClass 物品类型
+	 * @return 物品对象
+	 */
+	UFUNCTION(BlueprintCallable, Category = Functions)
+	TArray<UDreamInventoryItem*> GetItemsByClass(TSubclassOf<UDreamInventoryItem> InClass);
+
 public:
 	// 清除空物品
 	virtual void CleanEmptyItem();
@@ -172,4 +181,19 @@ public:
 	virtual void RemoveByIndex(int InIndex);
 	// 新建物品
 	virtual UDreamInventoryItem* NewItemByClass(TSubclassOf<UDreamInventoryItem> InClass);
+
+public:
+	template <typename T>
+	TArray<T*> GetItemsByClass(TSubclassOf<T> Class)
+	{
+		TArray<T*> Result; 
+		for (auto Element : GetInventoryData())
+		{
+			if (Element->GetClass() == Class)
+			{
+				Result.Add(Cast<T>(Element));
+			}
+		}
+		return Result;
+	}
 };
