@@ -3,6 +3,8 @@
 #include "DreamGameplayInventoryEditorSettings.h"
 #include "DreamGameplayInventoryEditorTools.h"
 #include "DreamGameplayInventoryLog.h"
+#include "EditorUtilityLibrary.h"
+#include "EditorUtilityLibrary.h"
 #include "KismetCompilerModule.h"
 #include "AssetRegistry/AssetRegistryModule.h"
 #include "Classes/DreamInventoryItem.h"
@@ -183,7 +185,8 @@ UBlueprint* FDreamGameplayInventoryEditorTools::CreateBlueprintByClass(TSubclass
 	KismetCompilerModule.GetBlueprintTypesForClass(ChosenClass, BlueprintClass, BlueprintGeneratedClass);
 
 	// Generate initial package and asset names
-	FString CurrentPath = FModuleManager::LoadModuleChecked<FDreamGameplayInventoryEditorModule>("DreamGameplayTaskEditor").CurrentContentBrowserPath;
+	FString CurrentPath;
+	UEditorUtilityLibrary::GetCurrentContentBrowserPath(CurrentPath);
 	FString PackageName = CurrentPath.Right(CurrentPath.Len() - 4) / Name;
 	FString UName;
 	FAssetToolsModule& AssetToolsModule = FModuleManager::LoadModuleChecked<FAssetToolsModule>("AssetTools");

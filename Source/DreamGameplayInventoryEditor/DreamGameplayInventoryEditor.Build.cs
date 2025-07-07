@@ -25,7 +25,8 @@ public class DreamGameplayInventoryEditor : ModuleRules
                 "Projects",
                 "DeveloperSettings",
                 "InputCore",
-                "UnrealEd"
+                "UnrealEd", 
+                "Blutility",
             }
         );
     }
